@@ -23,7 +23,7 @@ To run the application locally, first ensure that all node packages are sucessfu
 ## Images and Links
 
 - ![Screenshot](./public/assets/images/Screenshot%202024-08-20%20at%2013-09-26%20Note%20Taker.png)
-- <a href='https://grawrb.github.io/express-note-taker/' alt = "GitHub Pages Link">Express Powered Note Taker</a>
+- <a href='https://express-note-taker-jkjn.onrender.com' alt = "Deployed Application Link">Express Powered Note Taker</a>
 
 ## Contact Info
 
