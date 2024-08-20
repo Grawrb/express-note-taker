@@ -1,19 +1,24 @@
+// Import functions from node and express
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
 const PORT = 3000;
+const { v4: uuidv4 } = require('uuid');
 
+// Middleware to serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+// Route to serve the index.html file
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'notes.html'));
 });
 
+// Route to retrieve previously created notes
 app.get('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
         if (err) {
@@ -24,8 +29,10 @@ app.get('/api/notes', (req, res) => {
     });
 });
 
+// Route to create a new note and save it to the db.json file. 'uuid' assigns a random id to 'newNote' so it can individually accessed for deletion functionality
 app.post('/api/notes', (req, res) => {
     const newNote = req.body;
+    newNote.id = uuidv4();
     fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -43,6 +50,7 @@ app.post('/api/notes', (req, res) => {
     });
 });
 
+// Route to delete a note based on id
 app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id;
     fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
